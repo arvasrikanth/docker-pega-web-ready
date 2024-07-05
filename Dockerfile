@@ -5,7 +5,7 @@ ARG BASE_TOMCAT_IMAGE
 
 FROM pegasystems/detemplatize as detemplatize
 
-FROM $BASE_TOMCAT_IMAGE as release
+FROM akshithachittanoori276/testir:US-624164-tomcat as release
 
 ARG VERSION
 
