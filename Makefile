@@ -12,6 +12,7 @@ image:
 	docker build --build-arg VERSION=$(VERSION) --build-arg BASE_TOMCAT_IMAGE=akshithachittanoori276/testir:US-624164-tomcat -t $(IMAGE_NAME):US-624164-tomcat . # Build image using tomcat 9 , jdk 11
 #	docker build --build-arg VERSION=$(VERSION) --build-arg BASE_TOMCAT_IMAGE=pegasystems/tomcat:9-jdk17 -t $(IMAGE_NAME):3-jdk17 . # Build image using tomcat 9 , jdk 17
 
+
 test: image
 	# Build image for executing test cases against it
 	docker build --build-arg VERSION=$(VERSION) --build-arg BASE_TOMCAT_IMAGE=akshithachittanoori276/testir:US-624164-tomcat -t qualitytest . --target qualitytest
