@@ -94,6 +94,7 @@ RUN  mkdir -p /opt/pega/decompressedconfig  && \
      chown -R pegauser /opt/pega/decompressedconfig
 
 
+
 # Set up an empty JDBC URL which will, if set to a non-empty value, be used in preference
 # to the "constructed" JDBC URL
 ENV JDBC_URL='' \
