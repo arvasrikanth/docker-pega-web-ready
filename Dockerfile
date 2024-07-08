@@ -14,7 +14,6 @@ LABEL vendor="Pegasystems Inc." \
       version=${VERSION:-CUSTOM_BUILD}
 
 # Creating new user and group
-
 RUN groupadd -g 9001 pegauser && \
     useradd -r -u 9001 -g pegauser pegauser
 
