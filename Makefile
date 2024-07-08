@@ -8,24 +8,15 @@ all: image
 
 container: image
 
-define inspect_image
-    docker pull akshithachittanoori276/testir:US-624164-tomcat
-	$(eval $(EXTRACT_VAR)=$(shell docker inspect akshithachittanoori276/testir:US-624164-tomcat | jq -r '.[0].Config.Env[] | select(startswith("$(EXTRACT_VAR)="))' | cut -d'=' -f2))
-endef
-
-inspect:
-	$(inspect_image)
-	@echo "Extracted $(EXTRACT_VAR): $(JAVA_VERSION)"
-
-image:inspect
+image:
 #	docker build --build-arg VERSION=$(VERSION) --build-arg BASE_TOMCAT_IMAGE=pegasystems/tomcat:9-jdk17 -t $(IMAGE_NAME) . # Build image and automatically tag it as latest on jdk17
-	docker build --build-arg VERSION=$(VERSION)  --build-arg $(EXTRACT_VAR)=$(JAVA_VERSION) --build-arg BASE_TOMCAT_IMAGE=akshithachittanoori276/testir:US-624164-tomcat -t $(IMAGE_NAME):US-624164-tomcat . # Build image using tomcat 9 , jdk 11
+	docker build --build-arg VERSION=$(VERSION)  --build-arg $(EXTRACT_VAR)=$(JAVA_VERSION) --build-arg BASE_TOMCAT_IMAGE=akshithachittanoori276/testt:us-624164 -t $(IMAGE_NAME):US-624164-tomcat . # Build image using tomcat 9 , jdk 11
 #	docker build --build-arg VERSION=$(VERSION) --build-arg BASE_TOMCAT_IMAGE=pegasystems/tomcat:9-jdk17 -t $(IMAGE_NAME):3-jdk17 . # Build image using tomcat 9 , jdk 17
 
 
 test: image
 	# Build image for executing test cases against it
-	docker build --build-arg VERSION=$(VERSION) --build-arg BASE_TOMCAT_IMAGE=akshithachittanoori276/testir:US-624164-tomcat -t qualitytest . --target qualitytest
+	docker build --build-arg VERSION=$(VERSION) --build-arg BASE_TOMCAT_IMAGE=akshithachittanoori276/testt:us-624164 -t qualitytest . --target qualitytest
 	# Execute test cases
 	#container-structure-test test --image qualitytest --config tests/pega-web-ready-testcases.yaml
 	#container-structure-test test --image $(IMAGE_NAME) --config tests/pega-web-ready-release-testcases.yaml

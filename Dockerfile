@@ -5,7 +5,7 @@ ARG BASE_TOMCAT_IMAGE
 
 FROM pegasystems/detemplatize as detemplatize
 
-FROM akshithachittanoori276/testir:US-624164-tomcat as release
+FROM $BASE_TOMCAT_IMAGE as release
 
 ARG VERSION
 
@@ -92,7 +92,6 @@ RUN  mkdir -p /opt/pega/decompressedconfig  && \
      chgrp -R 0 /opt/pega/decompressedconfig && \
      chmod -R g+rw /opt/pega/decompressedconfig && \
      chown -R pegauser /opt/pega/decompressedconfig
-
 
 
 # Set up an empty JDBC URL which will, if set to a non-empty value, be used in preference
