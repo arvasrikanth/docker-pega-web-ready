@@ -9,6 +9,7 @@ all: image
 container: image
 
 define inspect_image
+    docker pull akshithachittanoori276/testir:US-624164-tomcat
 	$(eval $(EXTRACT_VAR)=$(shell docker inspect akshithachittanoori276/testir:US-624164-tomcat | jq -r '.[0].Config.Env[] | select(startswith("$(EXTRACT_VAR)="))' | cut -d'=' -f2))
 endef
 
