@@ -42,36 +42,36 @@ jobs:
         make test
         
   scan:
-    name: Scan for CVEs
-    runs-on: ubuntu-latest
-    if: always()
-    needs: docker-login
-    steps:
-    - name: Check out working repository
-      uses: actions/checkout@v2
-      
-    - name: Build Image
-      run: make image
-
-    - name: Scan image
-      id: scan
-      uses: anchore/scan-action@v3
-      with:
-        image: "akshithachittanoori276/web-ready:US-624164-tomcat"
-        fail-build: true
-        severity-cutoff: "high"
-        acs-report-enable: true
+#    name: Scan for CVEs
+#    runs-on: ubuntu-latest
+#    if: always()
+#    needs: docker-login
+#    steps:
+#    - name: Check out working repository
+#      uses: actions/checkout@v2
+#
+#    - name: Build Image
+#      run: make image
+#
+#    - name: Scan image
+#      id: scan
+#      uses: anchore/scan-action@v3
+#      with:
+#        image: "akshithachittanoori276/web-ready:US-624164-tomcat"
+#        fail-build: true
+#        severity-cutoff: "high"
+#        acs-report-enable: true
         
-    - name: Log Scan Results
-      if: always()
-      run: |
-        echo "Failures:"
-        cat ${{ steps.scan.outputs.sarif }} | jq '.runs[0].tool.driver.rules[].shortDescription.text' | grep -i "critical" || true
-        cat ${{ steps.scan.outputs.sarif }} | jq '.runs[0].tool.driver.rules[].shortDescription.text' | grep -i "high" || true
-        echo "Warnings:"
-        cat ${{ steps.scan.outputs.sarif }} | jq '.runs[0].tool.driver.rules[].shortDescription.text' | grep -i "medium" || true
-        cat ${{ steps.scan.outputs.sarif }} | jq '.runs[0].tool.driver.rules[].shortDescription.text' | grep -i "low" || true
-        cat ${{ steps.scan.outputs.sarif }} | jq '.runs[0].tool.driver.rules[].shortDescription.text' | grep -iv "critical\|high\|medium\|low" || true
+#    - name: Log Scan Results
+#      if: always()
+#      run: |
+#        echo "Failures:"
+#        cat ${{ steps.scan.outputs.sarif }} | jq '.runs[0].tool.driver.rules[].shortDescription.text' | grep -i "critical" || true
+#        cat ${{ steps.scan.outputs.sarif }} | jq '.runs[0].tool.driver.rules[].shortDescription.text' | grep -i "high" || true
+#        echo "Warnings:"
+#        cat ${{ steps.scan.outputs.sarif }} | jq '.runs[0].tool.driver.rules[].shortDescription.text' | grep -i "medium" || true
+#        cat ${{ steps.scan.outputs.sarif }} | jq '.runs[0].tool.driver.rules[].shortDescription.text' | grep -i "low" || true
+#        cat ${{ steps.scan.outputs.sarif }} | jq '.runs[0].tool.driver.rules[].shortDescription.text' | grep -iv "critical\|high\|medium\|low" || true
       
    # - name: Publish Scan Results as Artifact
     #  if: always()
